@@ -8,7 +8,7 @@ import os, math, signal, subprocess, psutil
 import sqlite3
 
 SECONDS_IN_A_DAY = 86400
-database_path = '/root/Reports/database.db'
+# database_path = '/root/Reports/database.db'
 
 IP_command = "/sbin/ip -4 -o a | cut -d ' ' -f 2,7 | cut -d '/' -f 1"
 
@@ -108,32 +108,32 @@ def application(last_date, last_count):
          draw.text((0,  5), "- - - - - - - DATE - - - - - - - ", font=font4,  fill=255)
          draw.text((35,  20), last_date, font=font4,  fill=255)
          
-         draw.text((0,  35), "- - - - TOTALIZED VALUE - - - - ",font=font4,  fill=255)
+         draw.text((0,  35), "- - - - Totalized Value - - - - ",  fill=255)
          draw.text((55,  50), last_count, font=font3, fill=255)
 
 
-def get_counts():
-    con = sqlite3.connect(database_path)
-    cur = con.cursor()
+# def get_counts():
+#     con = sqlite3.connect(database_path)
+#     cur = con.cursor()
 
-    query = 'SELECT * FROM ALL_COUNTS_TABLE ORDER BY ROWID DESC LIMIT 1;'
-    cur.execute(query)
-    data = cur.fetchone()
+#     query = 'SELECT * FROM ALL_COUNTS_TABLE ORDER BY ROWID DESC LIMIT 1;'
+#     cur.execute(query)
+#     data = cur.fetchone()
 
-    req_data = list(data)
-    day = req_data[0] if len(req_data[0]) > 1 else '0' + req_data[0]
-    month = req_data[1] if len(req_data[1]) > 1 else '0' + req_data[1]
-    year = req_data[2]
-    last_date = day + "/" + month + "/" + year
-    last_count = req_data[3]
+#     req_data = list(data)
+#     day = req_data[0] if len(req_data[0]) > 1 else '0' + req_data[0]
+#     month = req_data[1] if len(req_data[1]) > 1 else '0' + req_data[1]
+#     year = req_data[2]
+#     last_date = day + "/" + month + "/" + year
+#     last_count = req_data[3]
 
-    con.commit()
-    con.close()
+#     con.commit()
+#     con.close()
 
-    if data is None:
-        return None
-    else:
-        return [last_date, last_count]
+#     if data is None:
+#         return None
+#     else:
+#         return [last_date, last_count]
 
 
 def main():
@@ -144,30 +144,29 @@ def main():
     while 1 :
         clear_display()     
         show_logo(device)
-        sleep(5)
+        sleep(3)
         clear_display()
 
         show_hostname(device, hostname)
-        sleep(5)
+        sleep(3)
         clear_display()
 
         show_clock(device)
-        sleep(5)
+        sleep(3)
         clear_display()
 
         device_status()
-        sleep(5)
+        sleep(3)
         clear_display()
 
-        result_application = get_counts()
-        if result_application is not None:
-            last_date, last_count = result_application
-            application(last_date, last_count)
-            sleep(5)
-            clear_display()
-        else:
-            # print("Error: Unable to retrieve counts.")
-            pass
+        # result_application = get_counts()
+        # if result_application is not None:
+        #     last_date, last_count = result_application
+        #     application(last_date, last_count)
+        #     sleep(3)
+        #     clear_display()
+        # else:
+        #     print("Error: Unable to retrieve counts.")
 
 main()
     
