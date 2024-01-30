@@ -13,7 +13,7 @@ SECONDS_IN_A_DAY = 86400
 IP_command = "/sbin/ip -4 -o a | cut -d ' ' -f 2,7 | cut -d '/' -f 1"
 
 
-serial = i2c(port=0, address=0x3C)
+serial = i2c(port=1, address=0x3C)
 device = sh1106(serial, rotate=0)  
 
 SCRIPT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
